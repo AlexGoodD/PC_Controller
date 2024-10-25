@@ -33,7 +33,7 @@ class HostNameScreen extends StatelessWidget {
             ),
             const Divider(),
             CustomField(
-              labelText: "Ingrese el hostname:",
+              //labelText: "Ingrese el hostname:",
               hintText: "EJ. 127.0.0.1",
               textEditingController: hostnameLabel,
             ),
@@ -41,6 +41,8 @@ class HostNameScreen extends StatelessWidget {
             MainButton(
               width: MediaQuery.of(context).size.width,
               function: changeHostname,
+              primaryColor: Colors.blue, // Usa `primaryColor` en lugar de `primary`
+              onPrimaryColor: Colors.white, // Usa `onPrimaryColor` en lugar de `onPrimary`
               child: const CustomTextButton(text: "Aplicar cambios"),
             )
           ],

@@ -41,7 +41,7 @@ class SendPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30),
             child: CustomField(
-                labelText: "Ingrese una url:",
+                //labelText: "Ingrese una url:",
                 hintText: "EJ. https://www.youtube.com/",
                 textEditingController: textEditingController),
           ),
@@ -50,6 +50,8 @@ class SendPage extends StatelessWidget {
             child: MainButton(
               width: screenWidth * 0.8,
               function: sendUrl,
+              primaryColor: Colors.blue, // Usa `primaryColor` en lugar de `primary`
+              onPrimaryColor: Colors.white, // Usa `onPrimaryColor` en lugar de `onPrimary`
               child: const CustomTextButton(text: "Enviar página"),
             ),
           )

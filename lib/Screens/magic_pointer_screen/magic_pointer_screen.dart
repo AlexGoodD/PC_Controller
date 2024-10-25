@@ -112,7 +112,20 @@ class MagicPointerButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final labelText = Text(label, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 16),);
-    return MainButton(width: width, function: function, child: labelText,);
+    final labelText = Text(
+      label,
+      style: const TextStyle(
+        color: Colors.white,
+        fontWeight: FontWeight.w900,
+        fontSize: 16,
+      ),
+    );
+    return MainButton(
+      width: width,
+      function: function,
+      primaryColor: Colors.blue, // Usa `primaryColor` en lugar de `primary`
+      onPrimaryColor: Colors.white, // Usa `onPrimaryColor` en lugar de `onPrimary`
+      child: labelText,
+    );
   }
 }

@@ -9,11 +9,11 @@ class MainTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textStyle = TextStyle(
-        fontSize: CustomTheme.fontSizes["Title"], fontWeight: FontWeight.bold);
+        fontSize: CustomTheme.fontSizes["Title"], fontWeight: FontWeight.bold, color: CustomTheme.foreFontColor);
 
     return Center(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 42, vertical: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         child: Text(
           value,
           style: textStyle,

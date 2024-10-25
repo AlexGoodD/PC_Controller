@@ -4,6 +4,7 @@ import 'package:pc_controller_master/components/alerts.dart';
 import 'package:pc_controller_master/components/custom_field.dart';
 import 'package:pc_controller_master/components/main_button.dart';
 import 'package:pc_controller_master/api/connection_strings.dart';
+import 'package:pc_controller_master/settings/theme.dart';
 
 class VideoControl extends StatelessWidget {
   const VideoControl({super.key});
@@ -114,7 +115,29 @@ class VideoControl extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Controles de Vídeo"),
+        backgroundColor: Colors.transparent, // Hacer el fondo transparente
+        elevation: 0, // Quitar la sombra
+        leading: Padding(
+          padding: const EdgeInsets.all(10.0), // Espacio alrededor del botón
+          child: SizedBox(
+            width: 30, // Hacer el botón cuadrado
+            height: 30, // Hacer el botón cuadrado
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.zero, // Remover padding interno
+                backgroundColor: CustomTheme.bgTextField, // Color de fondo del botón
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8), // Bordes redondeados, pero cuadrado
+                ),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop(); // Acción para ir atrás
+              },
+              child: const Icon(Icons.arrow_back, color: CustomTheme.colorTextField), // Ícono de flecha hacia atrás
+            ),
+          ),
+        ),
+        title: const Text("Controles de vídeo"),
         centerTitle: true,
       ),
       body: Padding(
@@ -122,41 +145,51 @@ class VideoControl extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CustomField(
-              labelText: "Envía un texto: ",
-              hintText: "Ej. Vídeos de perros",
-              textEditingController: textController,
+            Row(
+              children: [
+                Expanded(
+                  child: CustomField(
+                    hintText: "Ej. Vídeos de perros",
+                    textEditingController: textController,
+                  ),
+                ),
+                const SizedBox(width: 8), // Espacio entre el TextField y el botón
+                SizedBox(
+                  width: 40, // Tamaño cuadrado para el botón
+                  height: 40,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.zero, // Remover padding interno
+                      backgroundColor: CustomTheme.videoButton, // Color del botón
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10), // Bordes redondeados pero cuadrados
+                      ),
+                    ),
+                    onPressed: sendText, // Acción para enviar texto
+                    child: const Icon(Icons.send, color: Colors.white), // Ícono de enviar
+                  ),
+                ),
+              ],
             ),
-            verticalGap,
-            MainButton(
-              width: double.maxFinite,
-              function: sendText,
-              child: const CustomTextButton(
-                text: "Enviar texto",
-              ),
-            ),
-            const Expanded(
-              child: Column(),
-            ),
+            const SizedBox(height: 100),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 FloatingActionButton(
                   onPressed: goFullScreen,
                   shape: const CircleBorder(),
-                  backgroundColor: Colors.blue,
-                  child: const Icon(Icons.fullscreen_rounded),
+                  backgroundColor: CustomTheme.videoButton,
+                  child: const Icon(Icons.fullscreen_rounded, color: CustomTheme.primaryFontColor),
                 ),
                 const Expanded(child: Row()),
                 FloatingActionButton(
                   onPressed: volumeMute,
                   shape: const CircleBorder(),
-                  backgroundColor: Colors.blue,
-                  child: const Icon(Icons.volume_mute),
+                  backgroundColor: CustomTheme.videoButton,
+                  child: const Icon(Icons.volume_off, color: CustomTheme.primaryFontColor),
                 ),
               ],
             ),
-            verticalGap,
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -165,15 +198,15 @@ class VideoControl extends StatelessWidget {
                     FloatingActionButton(
                       onPressed: goNext,
                       shape: const CircleBorder(),
-                      backgroundColor: Colors.blue,
-                      child: const Icon(Icons.skip_next),
+                      backgroundColor: CustomTheme.videoButton,
+                      child: const Icon(Icons.skip_next, color: CustomTheme.primaryFontColor),
                     ),
                     verticalGap,
                     FloatingActionButton(
                       onPressed: goPrev,
                       shape: const CircleBorder(),
-                      backgroundColor: Colors.blue,
-                      child: const Icon(Icons.skip_previous),
+                      backgroundColor: CustomTheme.videoButton,
+                      child: const Icon(Icons.skip_previous, color: CustomTheme.primaryFontColor),
                     )
                   ],
                 ),
@@ -181,24 +214,27 @@ class VideoControl extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(32),
                       child: MainButton(
-                          width: double.maxFinite,
+                          width: 50,
+                          height: 50,
                           function: goEnter,
+                          primaryColor: CustomTheme.videoButton, // Usa `primaryColor` en lugar de `primary`
+                          onPrimaryColor: Colors.white, // Usa `onPrimaryColor` en lugar de `onPrimary`
                           child: const CustomTextButton(text: "Enter")),
                     )),
                 Column(
                   children: [
                     FloatingActionButton(
-                      onPressed: volumeUp,
+                      onPressed: volumeDown,
                       shape: const CircleBorder(),
-                      backgroundColor: Colors.blue,
-                      child: const Icon(Icons.volume_up),
+                      backgroundColor: CustomTheme.videoButton,
+                      child: const Icon(Icons.volume_down, color: CustomTheme.primaryFontColor),
                     ),
                     verticalGap,
                     FloatingActionButton(
-                      onPressed: volumeDown,
+                      onPressed: volumeUp,
                       shape: const CircleBorder(),
-                      backgroundColor: Colors.blue,
-                      child: const Icon(Icons.volume_down),
+                      backgroundColor: CustomTheme.videoButton,
+                      child: const Icon(Icons.volume_up, color: CustomTheme.primaryFontColor),
                     )
                   ],
                 )
@@ -210,19 +246,28 @@ class VideoControl extends StatelessWidget {
               children: [
                 MainButton(
                   width: 48,
+                  height: 50,
                   function: goBack,
+                  primaryColor: CustomTheme.videoButton, // Usa `primaryColor` en lugar de `primary`
+                  onPrimaryColor: Colors.white, // Usa `onPrimaryColor` en lugar de `onPrimary`
                   child: const Icon(Icons.fast_rewind),
                 ),
                 horizontalGap,
                 MainButton(
                   width: 48,
+                  height: 50,
                   function: playPause,
+                  primaryColor: CustomTheme.videoButton, // Usa `primaryColor` en lugar de `primary`
+                  onPrimaryColor: Colors.white, // Usa `onPrimaryColor` en lugar de `onPrimary`
                   child: const Icon(Icons.play_arrow),
                 ),
                 horizontalGap,
                 MainButton(
                   width: 48,
+                  height: 50,
                   function: advance,
+                  primaryColor: CustomTheme.videoButton, // Usa `primaryColor` en lugar de `primary`
+                  onPrimaryColor: Colors.white, // Usa `onPrimaryColor` en lugar de `onPrimary`
                   child: const Icon(Icons.fast_forward),
                 )
               ],
@@ -233,13 +278,19 @@ class VideoControl extends StatelessWidget {
               children: [
                 MainButton(
                   width: 64,
+                  height: 50,
                   function: usingLB,
+                  primaryColor: CustomTheme.videoButton, // Usa `primaryColor` en lugar de `primary`
+                  onPrimaryColor: Colors.white, // Usa `onPrimaryColor` en lugar de `onPrimary`
                   child: const CustomTextButton(text: "LB"),
                 ),
                 horizontalGap,
                 MainButton(
                   width: 64,
+                  height: 50,
                   function: usingRB,
+                  primaryColor: CustomTheme.videoButton, // Usa `primaryColor` en lugar de `primary`
+                  onPrimaryColor: Colors.white, // Usa `onPrimaryColor` en lugar de `onPrimary`
                   child: const CustomTextButton(
                     text: "RB",
                   ),
