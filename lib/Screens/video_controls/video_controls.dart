@@ -114,37 +114,65 @@ class VideoControl extends StatelessWidget {
     }
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent, // Hacer el fondo transparente
-        elevation: 0, // Quitar la sombra
-        leading: Padding(
-          padding: const EdgeInsets.all(10.0), // Espacio alrededor del botón
-          child: SizedBox(
-            width: 30, // Hacer el botón cuadrado
-            height: 30, // Hacer el botón cuadrado
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.zero, // Remover padding interno
-                backgroundColor: CustomTheme.bgTextField, // Color de fondo del botón
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8), // Bordes redondeados, pero cuadrado
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(80), // Ajustar la altura total del AppBar
+        child: Column(
+          children: [
+            const SizedBox(height: 20), // Espacio adicional en la parte superior del AppBar
+            AppBar(
+              backgroundColor: Colors.transparent, // Hacer el fondo transparente
+              elevation: 0, // Quitar la sombra
+              leading: Padding(
+                padding: const EdgeInsets.all(10.0), // Espacio alrededor del botón
+                child: SizedBox(
+                  width: 30, // Hacer el botón cuadrado
+                  height: 30, // Hacer el botón cuadrado
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.zero, // Remover padding interno
+                      backgroundColor: CustomTheme.bgTextField, // Color de fondo del botón
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8), // Bordes redondeados, pero cuadrado
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pop(); // Acción para ir atrás
+                    },
+                    child: const Icon(Icons.arrow_back, color: CustomTheme.colorTextField), // Ícono de flecha hacia atrás
+                  ),
                 ),
               ),
-              onPressed: () {
-                Navigator.of(context).pop(); // Acción para ir atrás
-              },
-              child: const Icon(Icons.arrow_back, color: CustomTheme.colorTextField), // Ícono de flecha hacia atrás
+              title: const Text(
+                "Controles de vídeo",
+                style: TextStyle(
+                  color: Colors.white, // Cambia el color del texto
+                  fontWeight: FontWeight.bold, // Ajusta el peso del texto si lo deseas
+                ),
+              ),
+              centerTitle: true,
             ),
-          ),
+          ],
         ),
-        title: const Text("Controles de vídeo"),
-        centerTitle: true,
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 32.0),
+        padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          //mainAxisAlignment: MainAxisAlignment.start, // Alinear al inicio de la columna
           children: [
+            //const SizedBox(height: 10), // Espacio en la parte superior
+            // Label para el TextField
+            const Padding(
+              padding: EdgeInsets.only(right: 100), // Ajuste para alinear mejor el label
+              child: Text(
+                "Ingresa una búsqueda:",
+                style: TextStyle(
+                  fontSize: 22,
+                  color: CustomTheme.primaryFontColor, // Color del label
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+            const SizedBox(height: 10), // Espacio entre el label y el campo de texto
             Row(
               children: [
                 Expanded(
@@ -153,7 +181,7 @@ class VideoControl extends StatelessWidget {
                     textEditingController: textController,
                   ),
                 ),
-                const SizedBox(width: 8), // Espacio entre el TextField y el botón
+                const SizedBox(width: 10), // Espacio entre el TextField y el botón
                 SizedBox(
                   width: 40, // Tamaño cuadrado para el botón
                   height: 40,
@@ -171,7 +199,8 @@ class VideoControl extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 100),
+            const SizedBox(height: 60), // Espacio entre la primera fila y los botones de abajo
+            // Segunda fila con botones de acciones
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -181,7 +210,7 @@ class VideoControl extends StatelessWidget {
                   backgroundColor: CustomTheme.videoButton,
                   child: const Icon(Icons.fullscreen_rounded, color: CustomTheme.primaryFontColor),
                 ),
-                const Expanded(child: Row()),
+                const SizedBox(width: 220), // Espacio entre los botones
                 FloatingActionButton(
                   onPressed: volumeMute,
                   shape: const CircleBorder(),
@@ -190,6 +219,7 @@ class VideoControl extends StatelessWidget {
                 ),
               ],
             ),
+            const SizedBox(height: 15), // Espacio adicional entre las filas
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -201,7 +231,7 @@ class VideoControl extends StatelessWidget {
                       backgroundColor: CustomTheme.videoButton,
                       child: const Icon(Icons.skip_next, color: CustomTheme.primaryFontColor),
                     ),
-                    verticalGap,
+                    const SizedBox(height: 15), // Espacio entre los botones en la columna
                     FloatingActionButton(
                       onPressed: goPrev,
                       shape: const CircleBorder(),
@@ -210,17 +240,20 @@ class VideoControl extends StatelessWidget {
                     )
                   ],
                 ),
+                const SizedBox(width: 20), // Espacio entre columnas
                 Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(32),
-                      child: MainButton(
-                          width: 50,
-                          height: 50,
-                          function: goEnter,
-                          primaryColor: CustomTheme.videoButton, // Usa `primaryColor` en lugar de `primary`
-                          onPrimaryColor: Colors.white, // Usa `onPrimaryColor` en lugar de `onPrimary`
-                          child: const CustomTextButton(text: "Enter")),
-                    )),
+                  child: Padding(
+                    padding: const EdgeInsets.all(32),
+                    child: MainButton(
+                        width: 50,
+                        height: 50,
+                        function: goEnter,
+                        primaryColor: CustomTheme.videoButton, // Usa `primaryColor` en lugar de `primary`
+                        onPrimaryColor: Colors.white, // Usa `onPrimaryColor` en lugar de `onPrimary`
+                        child: const CustomTextButton(text: "Enter")),
+                  ),
+                ),
+                const SizedBox(width: 20), // Espacio entre columnas
                 Column(
                   children: [
                     FloatingActionButton(
@@ -229,7 +262,7 @@ class VideoControl extends StatelessWidget {
                       backgroundColor: CustomTheme.videoButton,
                       child: const Icon(Icons.volume_down, color: CustomTheme.primaryFontColor),
                     ),
-                    verticalGap,
+                    const SizedBox(height: 15), // Espacio entre los botones en la columna
                     FloatingActionButton(
                       onPressed: volumeUp,
                       shape: const CircleBorder(),
@@ -240,7 +273,7 @@ class VideoControl extends StatelessWidget {
                 )
               ],
             ),
-            verticalGap,
+            const SizedBox(height: 100), // Espacio adicional entre las filas
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -248,31 +281,31 @@ class VideoControl extends StatelessWidget {
                   width: 48,
                   height: 50,
                   function: goBack,
-                  primaryColor: CustomTheme.videoButton, // Usa `primaryColor` en lugar de `primary`
-                  onPrimaryColor: Colors.white, // Usa `onPrimaryColor` en lugar de `onPrimary`
+                  primaryColor: CustomTheme.videoButton,
+                  onPrimaryColor: Colors.white,
                   child: const Icon(Icons.fast_rewind),
                 ),
-                horizontalGap,
+                const SizedBox(width: 20), // Espacio entre los botones
                 MainButton(
                   width: 48,
                   height: 50,
                   function: playPause,
-                  primaryColor: CustomTheme.videoButton, // Usa `primaryColor` en lugar de `primary`
-                  onPrimaryColor: Colors.white, // Usa `onPrimaryColor` en lugar de `onPrimary`
+                  primaryColor: CustomTheme.videoButton,
+                  onPrimaryColor: Colors.white,
                   child: const Icon(Icons.play_arrow),
                 ),
-                horizontalGap,
+                const SizedBox(width: 20), // Espacio entre los botones
                 MainButton(
                   width: 48,
                   height: 50,
                   function: advance,
-                  primaryColor: CustomTheme.videoButton, // Usa `primaryColor` en lugar de `primary`
-                  onPrimaryColor: Colors.white, // Usa `onPrimaryColor` en lugar de `onPrimary`
+                  primaryColor: CustomTheme.videoButton,
+                  onPrimaryColor: Colors.white,
                   child: const Icon(Icons.fast_forward),
                 )
               ],
             ),
-            verticalGap,
+            const SizedBox(height: 20), // Espacio adicional entre las filas
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -280,17 +313,17 @@ class VideoControl extends StatelessWidget {
                   width: 64,
                   height: 50,
                   function: usingLB,
-                  primaryColor: CustomTheme.videoButton, // Usa `primaryColor` en lugar de `primary`
-                  onPrimaryColor: Colors.white, // Usa `onPrimaryColor` en lugar de `onPrimary`
+                  primaryColor: CustomTheme.videoButton,
+                  onPrimaryColor: Colors.white,
                   child: const CustomTextButton(text: "LB"),
                 ),
-                horizontalGap,
+                const SizedBox(width: 20), // Espacio entre los botones
                 MainButton(
                   width: 64,
                   height: 50,
                   function: usingRB,
-                  primaryColor: CustomTheme.videoButton, // Usa `primaryColor` en lugar de `primary`
-                  onPrimaryColor: Colors.white, // Usa `onPrimaryColor` en lugar de `onPrimary`
+                  primaryColor: CustomTheme.videoButton,
+                  onPrimaryColor: Colors.white,
                   child: const CustomTextButton(
                     text: "RB",
                   ),

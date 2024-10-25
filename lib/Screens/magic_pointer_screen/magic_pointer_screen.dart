@@ -4,6 +4,7 @@ import 'package:pc_controller_master/components/main_button.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 import 'package:pc_controller_master/api/connection_strings.dart';
 import 'package:flutter/material.dart';
+import 'package:pc_controller_master/settings/theme.dart';
 
 class GyroPosition {
   double x;
@@ -68,7 +69,6 @@ class _MagicPointerScreenState extends State<MagicPointerScreen> {
     const verticalPaddingValue = 16.0;
 
     final mediaQuery = MediaQuery.of(context);
-    final buttonWidth = mediaQuery.size.width * 0.3;
 
     void sendPrimaryClick() {
       socket.writeln("/primary_button");
@@ -79,14 +79,50 @@ class _MagicPointerScreenState extends State<MagicPointerScreen> {
     }
 
     final buttons = [
-      MagicPointerButton(width: buttonWidth, label: "Botón 1", function: sendPrimaryClick,),
-      MagicPointerButton(width: buttonWidth, label: "Botón 2", function: sendSecondaryClick)
+      MagicPointerButton(width: 100, height: 50, label: "Botón 1", function: sendPrimaryClick,),
+      MagicPointerButton(width: 100, height: 50, label: "Botón 2", function: sendSecondaryClick)
     ];
 
     return Scaffold(
-        appBar: AppBar(
-          title: const Text("Magic Pointer"),
-          centerTitle: true,
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(80), // Ajustar la altura total del AppBar
+          child: Column(
+            children: [
+              const SizedBox(height: 20), // Espacio adicional en la parte superior del AppBar
+              AppBar(
+                backgroundColor: Colors.transparent, // Hacer el fondo transparente
+                elevation: 0, // Quitar la sombra
+                leading: Padding(
+                  padding: const EdgeInsets.all(10.0), // Espacio alrededor del botón
+                  child: SizedBox(
+                    width: 30, // Hacer el botón cuadrado
+                    height: 30, // Hacer el botón cuadrado
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        padding: EdgeInsets.zero, // Remover padding interno
+                        backgroundColor: CustomTheme.bgTextField, // Color de fondo del botón
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8), // Bordes redondeados, pero cuadrado
+                        ),
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).pop(); // Acción para ir atrás
+                      },
+                      child: const Icon(Icons.arrow_back, color: CustomTheme.colorTextField), // Ícono de flecha hacia atrás
+                    ),
+                  ),
+                ),
+                title: const Text(
+                  "Puntero mágico",
+                  style: TextStyle(
+                    color: Colors.white, // Cambia el color del texto
+                    fontWeight: FontWeight.bold, // Ajusta el peso del texto si lo deseas
+                  ),
+                ),
+                centerTitle: true,
+              ),
+            ],
+          ),
         ),
         body: Column(
           children: [
@@ -97,7 +133,8 @@ class _MagicPointerScreenState extends State<MagicPointerScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: buttons,
               ),
-            )
+            ),
+            const SizedBox(height: 100), // Espacio adicional debajo de los botones
           ],
         )
     );
@@ -105,8 +142,9 @@ class _MagicPointerScreenState extends State<MagicPointerScreen> {
 }
 
 class MagicPointerButton extends StatelessWidget {
-  const MagicPointerButton({super.key, required this.width, this.label = "", this.function});
+  const MagicPointerButton({super.key, required this.width, this.label = "", this.function, required this.height});
   final double width;
+  final double height;
   final String label;
   final void Function()? function;
 
@@ -122,8 +160,9 @@ class MagicPointerButton extends StatelessWidget {
     );
     return MainButton(
       width: width,
+      height: height,
       function: function,
-      primaryColor: Colors.blue, // Usa `primaryColor` en lugar de `primary`
+      primaryColor: CustomTheme.cursorButton, // Usa `primaryColor` en lugar de `primary`
       onPrimaryColor: Colors.white, // Usa `onPrimaryColor` en lugar de `onPrimary`
       child: labelText,
     );

@@ -16,17 +16,21 @@ class LargeButton extends StatelessWidget {
 
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-          backgroundColor: primaryColor,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16))
+        backgroundColor: CustomTheme.presentationButton,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        padding: EdgeInsets.zero, // Eliminar padding adicional
       ),
       onPressed: onPressed,
       child: SizedBox(
-          height: 120,
+        height: 120,
+        width: 50, // Ajustar el ancho del botón para darle más espacio al ícono
+        child: Center( // Centrar el ícono dentro del botón
           child: Icon(
             icon,
-            size: 30,
+            size: 50,
             color: Colors.white,
-          )
+          ),
+        ),
       ),
     );
   }

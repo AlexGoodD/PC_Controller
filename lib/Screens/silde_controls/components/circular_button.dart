@@ -12,16 +12,14 @@ class CircularButton extends StatelessWidget {
     final brightness = Theme.of(context).brightness;
     final isLight = brightness == Brightness.light;
 
-    // Theme Colors
-    final primaryColor = isLight ? CustomTheme.primaryColor : CustomThemeDark.primaryColor;
 
     return FloatingActionButton(
         shape: const OvalBorder(),
-        elevation: 2,
-        backgroundColor: primaryColor,
+        elevation: 0,
+        backgroundColor: CustomTheme.presentationButton,
         foregroundColor: Colors.white,
         onPressed: onPressed,
-        child: Icon(icon, size: 32)
+        child: Icon(icon, size: 40)
     );
   }
 }

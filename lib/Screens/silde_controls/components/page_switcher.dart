@@ -17,17 +17,12 @@ class PageSwitcher extends StatelessWidget {
 
     final mediaQ = MediaQuery.of(context);
     final size = mediaQ.size;
-    final brightness = Theme.of(context).brightness;
-    final isLight = brightness == Brightness.light;
-
-    // Theme Colors
-    final secondaryBackgroundColor = isLight ? CustomTheme.secondaryBackgroundColor : CustomThemeDark.secondaryBackgroundColor;
 
     return Container(
       margin: const EdgeInsets.all(32),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(size.width / 2),
-          color: secondaryBackgroundColor
+          borderRadius: BorderRadius.circular(size.width / 1),
+          color: CustomTheme.bgTextField,
       ),
       child: Center(
         child: Padding(
@@ -39,7 +34,7 @@ class PageSwitcher extends StatelessWidget {
                 onPressed: nextSlideAction,
               ),
               const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 4)
+                  padding: EdgeInsets.symmetric(vertical: 10)
               ),
               LargeButton(
                 icon: Icons.arrow_drop_down,
