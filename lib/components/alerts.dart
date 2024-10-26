@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 Future<void> showAlert(BuildContext context, Widget icon, String title, String message) async {
@@ -9,10 +8,10 @@ Future<void> showAlert(BuildContext context, Widget icon, String title, String m
       Navigator.of(context).pop();
     }
 
-    TextButton okButton = TextButton(onPressed: closeAlert, child: const Text("Ok"));
+    TextButton okButton = TextButton(onPressed: closeAlert, child: const Text("Entendido"));
 
     return BackdropFilter(
-      filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+      filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
       child: AlertDialog(
         icon: icon,
         title: Text(title),

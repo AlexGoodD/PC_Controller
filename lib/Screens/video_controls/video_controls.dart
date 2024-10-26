@@ -177,7 +177,7 @@ class VideoControl extends StatelessWidget {
               children: [
                 Expanded(
                   child: CustomField(
-                    hintText: "Ej. Vídeos de perros",
+                    hintText: 'Ej. "Vídeos de perros recompilación"',
                     textEditingController: textController,
                   ),
                 ),

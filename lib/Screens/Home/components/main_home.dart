@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pc_controller_master/settings/theme.dart';
 
 class MainHomeArt extends StatelessWidget {
   const MainHomeArt({
@@ -8,18 +7,11 @@ class MainHomeArt extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final brightness = Theme.of(context).brightness;
-
-    final isLight = brightness == Brightness.light;
 
     const double width = 300;
     const double height = 300;
 
-    // Theme Colors
-    final primaryColor = isLight? CustomTheme.primaryColor : CustomThemeDark.primaryColor;
-    final secondBgColor = isLight? CustomTheme.secondaryBackgroundColor : CustomThemeDark.secondaryBackgroundColor;
-
-    return Container(
+    return SizedBox(
       width: width,
       height: height,
         child: Image.asset(
